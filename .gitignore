@@ -33,3 +33,8 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# django
+settings_locale.py
+media/*
+assets/*
