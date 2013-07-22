@@ -1,0 +1,22 @@
+<table class="large-12">
+    <thead>
+        <tr>
+            <th>Project</th>
+            <th>Progress</th>
+            <th>Technologies</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in project_list %}
+            <tr>
+                <td><a href="{% url 'project_detail' project.id %}">{{ project.name }}</a></td>
+                <td><div class="progress"><span class="meter" style="width: {{ project.progress }}%;"></span></div></td>
+                <td>
+                    {% for technology in project.technologies %}
+                        <a href="#">{{ technology.name }}</a>{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
