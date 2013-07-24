@@ -9,10 +9,10 @@ class Technology(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     start_date = models.DateField()
-    end_date = models.DateField()
-    progress = models.PositiveSmallIntegerField()
+    end_date = models.DateField(null=True, blank=True)
+    progress = models.PositiveSmallIntegerField(default=0)
     technologies = models.ManyToManyField(Technology)
 
     def __unicode__(self):
