@@ -17,3 +17,14 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.name
+
+class StatusUpdate(models.Model):
+    date = models.DateField()
+    text = models.TextField()
+    project = models.ForeignKey('Project')
+
+    class Meta:
+        ordering = ('-date',)
+
+    def __unicode__(self):
+        return "Update of %s" % self.date

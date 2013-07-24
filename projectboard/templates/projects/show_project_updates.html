@@ -1,0 +1,6 @@
+<dl>
+	{% for update in project_updates %}
+		<dt>{{ update.date }}</dt>
+		<dd>{{ update.text }}</dd>
+	{% endfor %}
+</dl>

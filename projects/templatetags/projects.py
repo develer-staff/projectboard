@@ -1,7 +1,7 @@
 from django import template
 register = template.Library()
 
-from ..models import Project, Technology
+from ..models import Project, Technology, StatusUpdate
 
 @register.inclusion_tag('projects/show_project_list.html', takes_context=True)
 def show_project_list(context):
@@ -29,4 +29,11 @@ def show_project_technologies(context, project_id):
     technologies = Technology.objects.filter(project=project_id)
 
     context.update({'project_technologies': technologies})
+    return context
+
+@register.inclusion_tag('projects/show_project_updates.html', takes_context=True)
+def show_project_updates(context, project_id):
+    updates = StatusUpdate.objects.filter(project=project_id)
+
+    context.update({'project_updates': updates})
     return context
