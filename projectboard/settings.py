@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'develer_tools',
     'south',
     'projects',
 )
@@ -155,7 +156,24 @@ LOGGING = {
 try:
     from settings_locale import *
 except ImportError:
-    pass
+    print >>sys.stderr, "[WARN] settings locale not found, using defaults"
+    DEBUG = True
+    SECRET_KEY = None
+
+if not SECRET_KEY:
+    if not DEBUG:
+        raise RuntimeError('SECRET_KEY not set')
+    else:
+        print >>sys.stderr, "[WARN] secret key not found"
+
+if not DEBUG:
+    from develer_tools.utils import codebase_id
+    STATIC_URL = '/static/%s/' % codebase_id()
+
+    AUTHENTICATION_BACKENDS = (
+        'develer_tools.backends.RemoteBackend',
+    )
+
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
