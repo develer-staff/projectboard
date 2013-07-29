@@ -1,0 +1,6 @@
+<h4>Team</h4>
+<ul>
+    {% for member in project_team %}
+        <li><a href="#"><img src="{{ member.profile.avatar.url }}" />{{ member.username }}</a></li>
+    {% endfor %}
+</ul>

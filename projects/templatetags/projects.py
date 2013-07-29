@@ -1,6 +1,7 @@
 from django import template
 register = template.Library()
 
+from django.contrib.auth.models import User
 from ..models import Project, Technology, StatusUpdate
 
 @register.inclusion_tag('projects/show_project_list.html', takes_context=True)
@@ -29,6 +30,13 @@ def show_project_technologies(context, project_id):
     technologies = Technology.objects.filter(project=project_id)
 
     context.update({'project_technologies': technologies})
+    return context
+
+@register.inclusion_tag('projects/show_project_team.html', takes_context=True)
+def show_project_team(context, project_id):
+    users = User.objects.filter(project=project_id)
+
+    context.update({'project_team': users})
     return context
 
 @register.inclusion_tag('projects/show_project_updates.html', takes_context=True)

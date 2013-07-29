@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 class Technology(models.Model):
     name = models.CharField(max_length=255)
@@ -6,6 +8,9 @@ class Technology(models.Model):
     def __unicode__(self):
         return self.name
 
+class TeamMember(models.Model):
+    user = models.OneToOneField(User, related_name='profile')
+    avatar = models.ImageField(upload_to='avatars')
 
 class Project(models.Model):
     name = models.CharField(max_length=255)
@@ -14,6 +19,7 @@ class Project(models.Model):
     end_date = models.DateField(null=True, blank=True)
     progress = models.PositiveSmallIntegerField(default=0)
     technologies = models.ManyToManyField(Technology)
+    team_members = models.ManyToManyField(User)
 
     def __unicode__(self):
         return self.name
